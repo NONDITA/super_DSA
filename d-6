@@ -1,0 +1,283 @@
+def selectionSort (array,size):
+    for step in range(size):
+        min_idx =step
+        for i in range(step +1,size):
+            if array[i] < array[min_idx]:
+                min_idx=i
+        (array[step], array[min_idx]) = (array[min_idx] , array[step])
+
+
+data =[20,12,10,15,2]
+size=len(data)
+selectionSort(data, size)
+print('sorted Array in Ascending Order:')
+print(data)
+
+#Write a python program to implement BakeHouse class
+class BakeHouse:
+    def __init__(self):
+        self.occupied_table_list = []
+
+    def get_occupied_table_list(self):
+        return self.occupied_table_list
+
+    def allocate_table(self):
+        for table_number in range(1, 11):
+            if table_number not in self.occupied_table_list:
+                self.occupied_table_list.append(table_number)
+                return table_number
+        return None
+
+    def deallocate_table(self, table_number):
+        if table_number in self.occupied_table_list:             
+            self.occupied_table_list.remove(table_number)
+
+
+bh = BakeHouse()
+print(bh.allocate_table())
+print(bh.get_occupied_table_list())
+
+print(bh.allocate_table())
+print(bh.get_occupied_table_list())  
+
+bh.deallocate_table(1)
+print(bh.get_occupied_table_list())
+
+
+
+class Employee:
+    def __init__(self, emp_id, emp_name, basic_salary, qualification):
+        self.emp_id = emp_id
+        self.emp_name = emp_name
+        self.basic_salary = basic_salary
+        self.qualification = qualification
+
+    def validate_basic_salary(self):
+        if self.basic_salary > 3000:
+            return True
+        else:
+            return False
+
+    def validate_qualification(self):
+        if self.qualification.lower() == "bachelors" or self.qualification.lower() == "masters":
+            return True
+        else:
+            return False
+
+
+class Graduate(Employee):
+    def __init__(self, emp_id, emp_name, basic_salary, qualification, job_band, cgpa):
+        super().__init__(emp_id, emp_name, basic_salary, qualification)
+        self.job_band = job_band
+        self.cgpa = cgpa
+
+    def validate_job_band(self):
+        if self.job_band.upper() in ["A", "B", "C"]:
+            return True
+        else:
+            return False
+
+    def calculate_gross_salary(self):
+        if self.validate_basic_salary() and self.validate_qualification() and self.validate_job_band():
+            pf = 0.12 * self.basic_salary
+            incentive = 0
+            if self.job_band.upper() == "A":
+                incentive = 0.04 * self.basic_salary
+            elif self.job_band.upper() == "B":
+                incentive = 0.06 * self.basic_salary
+            elif self.job_band.upper() == "C":
+                incentive = 0.1 * self.basic_salary
+
+            if self.cgpa >= 4 and self.cgpa <= 4.25:
+                tpi = 1000
+            elif self.cgpa > 4.25 and self.cgpa <= 4.5:
+                tpi = 1700
+            elif self.cgpa > 4.5 and self.cgpa <= 4.75:
+                tpi = 3200
+            elif self.cgpa > 4.75 and self.cgpa <= 5:
+                tpi = 5000
+
+            gross_salary = self.basic_salary + pf + tpi + incentive
+            return gross_salary
+        else:
+            return -1
+
+    def display(self):
+        print("Employee Name: ",self.emp_name)
+        print("Employee Id: ",self.emp_id)
+        print("Employee Qualification: ",self.qualification)
+        print("Employee Job_band: ",self.job_band)
+        print("Employee CGPA: ",self.cgpa)
+        print("Employee gross_Salary: ",self.calculate_gross_salary())
+
+
+class Lateral(Employee):
+    def __init__(self, emp_id, emp_name, basic_salary, qualification, job_band, skill_set):
+        super().__init__(emp_id, emp_name, basic_salary, qualification)
+        self.job_band = job_band
+        self.skill_set = skill_set
+
+    def validate_job_band(self):
+        if self.job_band.upper() in ["D", "E", "F"]:
+            return True
+        else:
+            return False
+
+    def calculate_gross_salary(self):
+        if self.validate_basic_salary() and self.validate_qualification() and self.validate_job_band():
+            pf = 0.12 * self.basic_salary
+            incentive = 0
+            if self.job_band.upper() == "D":
+                incentive = 0.13 * self.basic_salary
+            elif self.job_band.upper() == "E":
+                incentive = 0.16 * self.basic_salary
+            elif self.job_band.upper() == "F":
+                incentive = 0.2 * self.basic_salary
+
+            sme_bonus = 0
+            if self.skill_set.lower() == "agp":
+                sme_bonus = 6500
+            elif self.skill_set.lower() == "agpt":
+                sme_bonus = 8200
+            elif self.skill_set.lower() == "agdev":
+                sme_bonus = 11500
+
+            gross_salary = self.basic_salary + pf + sme_bonus+ incentive
+            return gross_salary
+        else:
+            return -1
+
+    def display(self):
+        print("Employee Name: ",self.emp_name)
+        print("Employee Id: ",self.emp_id)
+        print("Employee Qualification: ",self.qualification)
+        print("Employee Job_band: ",self.job_band)
+        print("Employee Skill: ",self.skill_set)
+        print("Employee gross_Salary: ",self.calculate_gross_salary())
+
+e = Employee(101,"Ashirbad",10000,"bachelors")
+g = Graduate(101,"Ashirbad",10000,"bachelors","A",5)
+l = Lateral(102,"Sapana",15000,"bachelors","D","agp")
+g.calculate_gross_salary()
+g.display()
+print("\nLateral Employee")                                            
+l.calculate_gross_salary()
+l.display()
+
+
+
+
+
+#Q5.
+#Write a python program that accepts a text
+#and displays a string which contains the word with the largest frequency in the text
+#and the frequency itself separated by a space.
+
+#Rules: The word should have the largest frequency.
+
+#In case multiple words have the same frequency, then choose the word that has the maximum length.
+
+#Assumptions:
+#The text has no special characters other than space. The text would begin with a word and there will be only a single space between the words.
+#Perform case insensitive string comparisons wherever necessary.
+
+def find_word_with_largest_frequency(text):
+    # Convert text to lowercase
+    text = text.lower()
+    
+    # Split text into words
+    words = text.split()
+    
+    # Create a dictionary to store word frequency
+    freq_dict = {}
+    for word in words:
+        if word in freq_dict:
+            freq_dict[word] += 1
+        else:
+            freq_dict[word] = 1
+    
+    # Find the word with the largest frequency
+    max_freq = 0
+    max_word = ""
+    for word, freq in freq_dict.items():
+        if freq > max_freq:
+            max_freq = freq
+            max_word = word
+        elif freq == max_freq:
+            if len(word) > len(max_word):
+                max_word = word
+    
+    # Return the word with its frequency
+    return max_word + " " + str(max_freq)
+
+text = "This is a sample text with sample words to test the program"
+result = find_word_with_largest_frequency(text)
+print(result)  # Output: sample 2
+
+
+#Q6.
+#Write a python function, check_anagram() which accepts two strings
+#and returns True, if one string is an anagram of another string.
+#Otherwise returns False.
+#The two strings are considered to be an anagram
+#if they contain repeating characters but none of the characters repeat at the same position.
+#The length of the strings should be the same.
+
+class Solution:
+    def isAnagram(self, a, b):
+            if sorted(a) == sorted(b):
+                return True
+            else:
+                return False
+if __name__ == '__main__':
+    a = "gram"
+    b = "armg"
+    if(Solution().isAnagram(a, b)):
+        print("The two strings are anagram of each other")
+    else:
+        print("The two strings are not anagram of each other")
+
+
+#Q7.
+# Python program to print circular primes.
+
+def circularPrime(n):
+	nNew = (n - 2) // 2
+	marked = [False for i in range(nNew + 1)]
+	SieveOfSundaram(marked, nNew)
+	print("2", end = ' ')
+	for i in range(1, nNew + 1):
+		if (marked[i] == True):
+			continue;
+		num = 2 * i + 1
+		num = Rotate(num)
+		while (num != 2 * i + 1):
+			if (num % 2 == 0):
+				break
+			if (marked[(num - 1) // 2] == False):
+				num = Rotate(num);
+			else:
+				break;
+		if (num == (2 * i + 1)):
+			print(num, end = ' ')
+def SieveOfSundaram(marked, nNew):
+	for i in range(1, nNew + 1):
+		j = i
+		while (i + j + 2 * i * j) <= nNew:
+			marked[i + j + 2 * i * j] = True
+			j += 1
+def Rotate(n):
+	rem = n % 10
+	rem = rem * (10 ** (countDigits(n) - 1))
+	n = n // 10 
+	n += rem 
+	return n
+def countDigits(n):
+	digit = 0
+	while n != 0:
+		n = n // 10
+		digit += 1
+	return digit
+if __name__=="__main__":
+	n = 100
+	circularPrime(n)
